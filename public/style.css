@@ -10,10 +10,15 @@ nav {
     align-items: center;
 }
 
+.titre {
+    margin: auto;
+    text-align: center;
+}
+
 #home, #listArticles{
     list-style-type: none;
     margin-right: 30px;
-    margin-top: 30px;
+    margin-top: 20px;
     border: 1px solid gray;
     border-radius: 20px;
     padding: 10px;
@@ -58,6 +63,12 @@ img {
 
 .btn:hover {
     background-color: lightcoral;
+}
+
+@media screen and (max-width: 765px) {
+    .bloc {
+        width: 80%;
+    }
 }
 
 
