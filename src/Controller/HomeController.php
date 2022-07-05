@@ -70,7 +70,7 @@ class HomeController extends AbstractController
             ],
         ];
         return $this->render("home.html.twig", [
-            'articles'=> $articles
+            'listArticles'=> $articles
         ]);
     }
 
