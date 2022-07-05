@@ -3,10 +3,28 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+
+    /**
+     * @Route("/", name="access")
+     */
+
+    public function form(Request $request)
+    {
+        if($request->query->has('age')){
+            if($request->query->get('age')< 18 ) {
+                return $this->render('accessDenied.html.twig');
+            } else {
+                return $this->render('home.html.twig');
+            }
+        } else {
+            return $this->render('firstHome.html.twig');
+        }
+    }
 
     /**
      * @Route("home", name="home")
