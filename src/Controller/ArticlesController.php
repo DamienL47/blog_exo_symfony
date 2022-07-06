@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticlesController extends AbstractController
@@ -104,5 +107,31 @@ class ArticlesController extends AbstractController
         return $this->render("article.html.twig", [
            'article' => $articles[$id]
         ]);
+    }
+
+    /**
+     * @Route("insert-article", name="insert_article")
+     */
+
+    public function insertArticle(EntityManagerInterface $entityManager)
+    {
+        //je créé une instance de la classe d'entité post
+        //pour créer un nouvel article dans ma base de données
+        $post = new Post();
+
+        //Je renseigne mes données en utilisant les setteurs de mes colonnes
+        $post->setTitle('Felix le chat');
+        $post->setContent('la première apparition de Felix le chat date de 1919');
+        $post->setAuthor('Damien');
+        $post->setIsPublished('true');
+
+        //Avec la classe Entity Manager Interface du framework doctrine
+        // pour enregistrer dans ma base de données mon entité dans la table post
+        $entityManager->persist($post);
+        // avec la même classe entity manager interface j'utilise la fonction flush
+        // pour envoyer vers la base de données.
+        $entityManager->flush();
+
+        dd($post);
     }
 }
