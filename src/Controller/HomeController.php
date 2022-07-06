@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -64,6 +66,24 @@ class HomeController extends AbstractController
         } else {
             return $this->render('firstHome.html.twig');
         }
+    }
+    /**
+     * @Route("insert-category", name="insert_category")
+     */
+    public function insertCategory(EntityManagerInterface $entityManager)
+    {
+        //Je recommence la même chose pour category ...
+        $category = new Category();
+
+        $category->setTitle('Legumes');
+        $category->setColor('violet');
+        $category->setDescription("l'aubergine est un tès gros légume violet ");
+        $category->setIsPublished('true');
+
+        $entityManager->persist($category);
+        $entityManager->flush();
+
+        dd($category);
     }
 
 }
