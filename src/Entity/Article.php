@@ -35,7 +35,7 @@ class Article
      * @ORM\Column(type="boolean")
      */
     public $isPublished;
-    // ajout d'une colonne auteur 
+    // ajout d'une colonne auteur
     /**
      * @ORM\Column(type="string")
      */
