@@ -1,7 +1,14 @@
-<form action="{{ path('access') }}" method="get">
-    <label for="age">Veuillez renseigner votre âge !</label>
-    <input type="number" name="age" id="age">
+{% block css%}
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
 
-    <button>Envoyer</button>
 
-</form>
+<div class="formulaire">
+    <form action="{{ path('home') }}" method="get">
+        <label for="age"><h1>Veuillez renseigner votre âge !</h1></label>
+        <input type="number" name="age" id="age">
+
+        <button>Envoyer</button>
+
+    </form>
+</div>
+{% endblock %}

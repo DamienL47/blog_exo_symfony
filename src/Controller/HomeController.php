@@ -10,26 +10,10 @@ class HomeController extends AbstractController
 {
 
     /**
-     * @Route("/", name="access")
+     * @Route("/", name="home")
      */
 
-    public function form(Request $request)
-    {
-        if($request->query->has('age')){
-            if($request->query->get('age')< 18 ) {
-                return $this->render('accessDenied.html.twig');
-            } else {
-                return $this->render('home.html.twig');
-            }
-        } else {
-            return $this->render('firstHome.html.twig');
-        }
-    }
-
-    /**
-     * @Route("home", name="home")
-     */
-    public function home()
+    public function home(Request $request)
     {
         $articles = [
             1 => [
@@ -69,9 +53,17 @@ class HomeController extends AbstractController
                 'id' => 4
             ],
         ];
-        return $this->render("home.html.twig", [
-            'listArticles'=> $articles
-        ]);
+        if($request->query->has('age')){
+            if($request->query->get('age')< 18 ) {
+                return $this->render('accessDenied.html.twig');
+            } else {
+                return $this->render('home.html.twig', [
+                    'listArticles' => $articles
+                ]);
+            }
+        } else {
+            return $this->render('firstHome.html.twig');
+        }
     }
 
 }
