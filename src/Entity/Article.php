@@ -25,17 +25,17 @@ class Article
      * @ORM\Column(type="string")
      */
     public $title;
-
+    // ajout d'une colonne image
     /**
      * @ORM\Column(type="string")
      */
     public $image;
-
+    // ajout d'une colonne booléenne publié ou non
     /**
      * @ORM\Column(type="boolean")
      */
     public $isPublished;
-
+    // ajout d'une colonne auteur 
     /**
      * @ORM\Column(type="string")
      */
