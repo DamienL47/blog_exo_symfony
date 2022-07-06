@@ -67,23 +67,5 @@ class HomeController extends AbstractController
             return $this->render('firstHome.html.twig');
         }
     }
-    /**
-     * @Route("insert-category", name="insert_category")
-     */
-    public function insertCategory(EntityManagerInterface $entityManager)
-    {
-        //Je recommence la même chose pour category ...
-        $category = new Category();
-
-        $category->setTitle('Legumes');
-        $category->setColor('violet');
-        $category->setDescription("l'aubergine est un tès gros légume violet ");
-        $category->setIsPublished('true');
-
-        $entityManager->persist($category);
-        $entityManager->flush();
-
-        dd($category);
-    }
 
 }
