@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,6 +26,22 @@ class CategoryController extends AbstractController
 
         $entityManager->persist($category);
         $entityManager->flush();
+
+        dd($category);
+    }
+    /**
+     * @Route("category", name="category")
+     */
+    public function showCategory(CategoryRepository $categoryRepository)
+    {
+        // Récupérer depuis la base de données un article
+        // en fonction d'un id
+        //donc un SELECT * FROM article where id = xxx
+
+        // La classe repository me permet de faire des requete dans la table
+        //La méthode find permet de récupérer un élément
+
+        $category = $categoryRepository->find(1);
 
         dd($category);
     }
