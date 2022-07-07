@@ -129,6 +129,16 @@ class ArticlesController extends AbstractController
     }
 
     /**
+     * @Route("articles", name="articles")
+     */
+    public function listArticles(PostRepository $listArticles)
+    {
+        $articles = $listArticles->findAll();
+
+        dd($articles);
+    }
+
+    /**
      * @Route("insert-article", name="insert_article")
      */
 
