@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Category;
-use Doctrine\ORM\EntityManagerInterface;
+
+
+
+use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -15,7 +16,7 @@ class HomeController extends AbstractController
      * @Route("/", name="home")
      */
 
-    public function home()
+    public function home(PostRepository $selectRepository)
     {
 //        $articles = [
 //            1 => [
@@ -66,7 +67,13 @@ class HomeController extends AbstractController
 //        } else {
 //            return $this->render('firstHome.html.twig');
 //        }
-        return $this->render('home.html.twig');
+
+
+        $selectArticles = $selectRepository->findBy([], ['id' => 'DESC'], 3);
+
+        return $this->render('home.html.twig', [
+            'articles' => $selectArticles
+        ]);
     }
 
 }

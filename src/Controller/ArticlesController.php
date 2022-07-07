@@ -161,6 +161,15 @@ class ArticlesController extends AbstractController
         // pour envoyer vers la base de données.
         $entityManager->flush();
 
+        $post1 = new Post();
+
+        $post1->setTitle('Beethoven le chien');
+        $post1->setContent('Bethoveen le chien est un ST Bernard');
+        $post1->setAuthor('Damien');
+        $post1->setIsPublished('true');
+
+        $entityManager->persist($post1);
+        $entityManager->flush();
 
     }
 
