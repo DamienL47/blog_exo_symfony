@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block main %}
+
+    {% if category.isPublished %}
+        <h1 style="color: {{ category.color }}"> {{ category.title }} </h1>
+        <p> {{ category.description }} </p>
+    {% else %}
+        <p> Cette catégorie n'est pas publié </p>
+    {% endif %}
+
+{% endblock %}
+
+{% block title %}
+
+{% endblock %}
+

@@ -30,9 +30,9 @@ class CategoryController extends AbstractController
         dd($category);
     }
     /**
-     * @Route("category", name="category")
+     * @Route("categories/{id}", name="category")
      */
-    public function showCategory(CategoryRepository $categoryRepository)
+    public function showCategory($id, CategoryRepository $categoryRepository)
     {
         // Récupérer depuis la base de données un article
         // en fonction d'un id
@@ -41,18 +41,24 @@ class CategoryController extends AbstractController
         // La classe repository me permet de faire des requete dans la table
         //La méthode find permet de récupérer un élément
 
-        $category = $categoryRepository->find(1);
+        $category = $categoryRepository->find($id);
 
-        dd($category);
+        return $this->render('category.html.twig', [
+            'category' => $category
+        ]);
     }
 
     /**
-     * @Route("list_category", name="list_category")
+     * @Route("categories", name="categories")
      */
     public function listCategory(CategoryRepository $listCategory)
     {
         $listCategory = $listCategory->findAll();
 
-        dd($listCategory);
+        return $this->render('categories.html.twig', [
+            'categories' => $listCategory
+        ]);
     }
+
+
 }

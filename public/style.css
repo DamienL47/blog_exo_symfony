@@ -16,7 +16,7 @@ nav {
     text-align: center;
 }
 
-#home, #listArticles{
+.item-menu{
     list-style-type: none;
     margin-right: 30px;
     margin-top: 20px;
@@ -26,7 +26,8 @@ nav {
     background-color: lightcoral;
 }
 
-#home:hover, #listArticles:hover {
+
+#home:hover, #listArticles:hover, #listCategory:hover {
     background-color: lightskyblue;
 }
 
