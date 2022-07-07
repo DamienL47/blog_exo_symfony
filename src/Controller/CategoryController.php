@@ -45,4 +45,14 @@ class CategoryController extends AbstractController
 
         dd($category);
     }
+
+    /**
+     * @Route("list_category", name="list_category")
+     */
+    public function listCategory(CategoryRepository $listCategory)
+    {
+        $listCategory = $listCategory->findAll();
+
+        dd($listCategory);
+    }
 }
