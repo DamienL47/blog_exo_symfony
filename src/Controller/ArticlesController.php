@@ -112,9 +112,9 @@ class ArticlesController extends AbstractController
 //    }
 
     /**
-     * @Route("article", name="article")
+     * @Route("article/{id}", name="article")
      */
-    public function showArticle(PostRepository $articleRepository)
+    public function showArticle(PostRepository $articleRepository, $id)
     {
         // Récupérer depuis la base de données un article
         // en fonction d'un id
@@ -123,9 +123,9 @@ class ArticlesController extends AbstractController
         // La classe repository me permet de faire des requete dans la table
         //La méthode find permet de récupérer un élément
 
-        $article = $articleRepository->find(1);
+        $article = $articleRepository->find($id);
 
-        dd($article);
+        return $this->render('article.html.twig', ['article' => $article ]);
     }
 
     /**
@@ -135,7 +135,7 @@ class ArticlesController extends AbstractController
     {
         $articles = $listArticles->findAll();
 
-        dd($articles);
+        return $this->render('articles.html.twig', ['articles' => $articles]);
     }
 
     /**
@@ -161,7 +161,7 @@ class ArticlesController extends AbstractController
         // pour envoyer vers la base de données.
         $entityManager->flush();
 
-        dd($post);
+
     }
 
 

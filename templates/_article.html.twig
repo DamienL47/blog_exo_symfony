@@ -2,9 +2,9 @@
 <article class="bloc">
     {% if article.isPublished %}
         <h1>{{ article.title }}</h1>
-        <p>{{ article.description }}</p>
-        <img src="{{ article.image }}" alt=" Image des articles">
-        <p>Publié le : {{ article.publishedAt | date("m/d/Y")}}</p>
+        <p>{{ article.content }}</p>
+{#        <img src="{{ article.image }}" alt=" Image des articles">#}
+{#        <p>Publié le : {{ article.publishedAt | date("m/d/Y")}}</p>#}
         <p>Auteur : {{ article.author}}</p>
         <a class="btn" style="color: black; text-decoration: none;" href={{ path('article', {'id': article.id }) }}> En savoir + </a>
     {% else %}
