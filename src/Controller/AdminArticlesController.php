@@ -185,7 +185,8 @@ class AdminArticlesController extends AbstractController
         if (!is_null($article)){
             $entityManager->remove($article);
             $entityManager->flush();
-            return new Response('Article supprimé');
+            new Response('Article supprimé');
+            return $this->render('home.html.twig');
         } else {
             return new Response('Article non trouvé ');
         }

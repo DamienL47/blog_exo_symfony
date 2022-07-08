@@ -4,9 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
-use App\Repository\PostRepository;
+use \Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -60,6 +59,23 @@ class AdminCategoryController extends AbstractController
         return $this->render('admin/categories.html.twig', [
             'categories' => $listCategory
         ]);
+    }
+
+    /**
+     * @Route("admin/delete_category/{id}", name="admin_delete_category")
+     */
+    public function deleteCategory($id, CategoryRepository $deleteCatRepository, EntityManagerInterface $entityManager)
+    {
+        $deleteCategory = $deleteCatRepository->find($id);
+
+        if(!is_null($deleteCategory)){
+            $entityManager->remove($deleteCategory);
+            $entityManager->flush();
+            new Response('Categorie supprimé');
+            return $this->render(':admin:categories.html.twig');
+        } else {
+            return new Response('Catégorie non trouvé ');
+        }
     }
 
 
