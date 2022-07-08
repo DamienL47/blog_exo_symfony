@@ -113,7 +113,7 @@ class ArticlesController extends AbstractController
 //    }
 
     /**
-     * @Route("article/{id}", name="article")
+     * @Route("/admin/article/{id}", name="admin-article")
      */
     public function showArticle(PostRepository $articleRepository, $id)
     {
@@ -130,7 +130,7 @@ class ArticlesController extends AbstractController
     }
 
     /**
-     * @Route("articles", name="articles")
+     * @Route("/admin/articles", name="admin-articles")
      */
     public function listArticles(PostRepository $listArticles)
     {
@@ -140,7 +140,7 @@ class ArticlesController extends AbstractController
     }
 
     /**
-     * @Route("insert-article", name="insert_article")
+     * @Route("/admin/insert-article", name="admin-insert_article")
      */
 
     public function insertArticle(EntityManagerInterface $entityManager)
@@ -175,7 +175,7 @@ class ArticlesController extends AbstractController
     }
 
     /**
-     * @Route("delete/article/{id}", name="delete-article")
+     * @Route("/admin/delete/article/{id}", name="admin-delete-article")
      */
 
     public function deleteArticle($id, PostRepository $deleteRepository, EntityManagerInterface $entityManager)
@@ -192,7 +192,7 @@ class ArticlesController extends AbstractController
     }
 
     /**
-     * @Route("update/article/{id}", name="update-article")
+     * @Route("/admin/update/article/{id}", name="admin-update-article")
      */
     public function updateArticle($id, EntityManagerInterface $entityManager, PostRepository $updateRepository)
     {

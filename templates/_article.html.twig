@@ -6,8 +6,9 @@
 {#        <img src="{{ article.image }}" alt=" Image des articles">#}
 {#        <p>Publié le : {{ article.publishedAt | date("m/d/Y")}}</p>#}
         <p>Auteur : {{ article.author}}</p>
-        <a class="btn" style="color: black; text-decoration: none;" href={{ path('article', {'id': article.id }) }}> En savoir + </a>
-        <a class="btn" style="color: black; text-decoration: none;" href={{ path('delete', {'id': article.id }) }}> Supprimer </a>
+        <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin-article', {'id': article.id }) }}> En savoir + </a>
+        <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin-delete-article', {'id': article.id }) }}> Supprimer </a>
+        <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin-update-article', {'id': article.id }) }}> Modifier </a>
     {% else %}
         <p>Désolé cet article n'est pas publié</p>
     {% endif %}
