@@ -8,6 +8,7 @@ use App\Entity\Post;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ArticlesController extends AbstractController
@@ -173,5 +174,33 @@ class ArticlesController extends AbstractController
 
     }
 
+    /**
+     * @Route("delete/article/{id}", name="delete-article")
+     */
 
+    public function deleteArticle($id, PostRepository $deleteRepository, EntityManagerInterface $entityManager)
+    {
+        $article = $deleteRepository->find($id);
+
+        if (!is_null($article)){
+            $entityManager->remove($article);
+            $entityManager->flush();
+            return new Response('Article supprimé');
+        } else {
+            return new Response('Article non trouvé ');
+        }
+    }
+
+    /**
+     * @Route("update/article/{id}", name="update-article")
+     */
+    public function updateArticle($id, EntityManagerInterface $entityManager, PostRepository $updateRepository)
+    {
+        $article = $updateRepository->find($id);
+
+        $article->setTitle('Nouveau titre');
+
+        $entityManager->persist($article);
+        $entityManager->flush();
+    }
 }

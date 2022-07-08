@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
+use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -59,6 +61,7 @@ class CategoryController extends AbstractController
             'categories' => $listCategory
         ]);
     }
+
 
 
 }
