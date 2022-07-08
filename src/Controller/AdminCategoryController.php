@@ -72,12 +72,32 @@ class AdminCategoryController extends AbstractController
             $entityManager->remove($deleteCategory);
             $entityManager->flush();
             new Response('Categorie supprimé');
-            return $this->render(':admin:categories.html.twig');
+            return $this->redirectToRoute('admin_categories');
         } else {
             return new Response('Catégorie non trouvé ');
         }
     }
 
+    // Je créé ma route vers la page de modification
+    /**
+     * @Route("/admin/update/category/{id}", name="admin_update_category")
+     */
+    // J'instancie ma classe en lui passant les méthodes de classe en parametre
+    // la methode repository me permet de cibler la table
+    // entity manager me permettra d'effectuer la méthode sur le serveur
+    public function updateCategory($id, CategoryRepository $updateCatRepository, EntityManagerInterface $entityManager)
+    {
+        //Je cible l'id grâce à la méthode find
+        $category = $updateCatRepository->find($id);
+        // je selectionne l'élément de la catégory à modifier grâce au setter
+        $category -> setTitle('nouveau titre');
+        //j'appelle la méthode entity manager pour "persister" (enregistrer) les modifications de ma catégory
+        //Puis je flush les changement pour qu'il soit envoyé dans la base de donnée.
+        $entityManager->persist($category);
+        $entityManager->flush();
 
+
+
+    }
 
 }

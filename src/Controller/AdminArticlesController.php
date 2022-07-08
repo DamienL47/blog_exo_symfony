@@ -8,6 +8,7 @@ use App\Entity\Post;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -162,16 +163,6 @@ class AdminArticlesController extends AbstractController
         // pour envoyer vers la base de données.
         $entityManager->flush();
 
-        $post1 = new Post();
-
-        $post1->setTitle('Beethoven le chien');
-        $post1->setContent('Bethoveen le chien est un ST Bernard');
-        $post1->setAuthor('Damien');
-        $post1->setIsPublished('true');
-
-        $entityManager->persist($post1);
-        $entityManager->flush();
-
     }
 
     /**
@@ -185,8 +176,7 @@ class AdminArticlesController extends AbstractController
         if (!is_null($article)){
             $entityManager->remove($article);
             $entityManager->flush();
-            new Response('Article supprimé');
-            return $this->render('home.html.twig');
+            return $this->redirectToRoute('home');
         } else {
             return new Response('Article non trouvé ');
         }
@@ -196,8 +186,16 @@ class AdminArticlesController extends AbstractController
      * @Route("/admin/update/article/{id}", name="admin-update-article")
      */
     public function updateArticle($id, EntityManagerInterface $entityManager, PostRepository $updateRepository)
-    {
+    {   //je récupère l'id de l'article à modifier en cliquant sur le lien modifier
         $article = $updateRepository->find($id);
+
+        //je redirige vers le formulaire de modification
+
+
+        //Je récupère la méthod post renseigné dans mon formulaire par l'admin
+
+        //je passe une condition pour savoir ce qui à été modifié
+
 
         $article->setTitle('Nouveau titre');
 

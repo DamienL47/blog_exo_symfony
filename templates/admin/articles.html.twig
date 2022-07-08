@@ -3,6 +3,7 @@
     <title> Liste des articles </title>
 {% endblock %}
 {% block main %}
+    <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin-insert_article') }}> Créer un Nouvel Article </a>
 <div class="articlesContainer">
     {% for article in articles %}
         {% include 'admin/_article.html.twig' %}
