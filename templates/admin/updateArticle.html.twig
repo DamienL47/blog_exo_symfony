@@ -1,7 +1,7 @@
 {% extends 'base.html.twig'%}
 {% block main %}
     <div class="formulaire">
-        <form action="{{ path('admin-update-article', {'id': article.id }) }}" method="post">
+        <form action="{{ path('admin-update-article', {'id': article.id }) }}" method="get">
             <label for="title"><h1>Titre</h1></label>
             <input type="text" name="title" id="title" placeholder= {{ article.title }}>
 

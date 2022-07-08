@@ -28,7 +28,9 @@ class AdminCategoryController extends AbstractController
         $entityManager->persist($category);
         $entityManager->flush();
 
-        dd($category);
+        $this->addFlash('Bravo', 'Votre catégory a bien été créé');
+
+        return $this->redirectToRoute('admin_categories');
     }
     /**
      * @Route("/admin/categories/{id}", name="admin_category")
@@ -72,6 +74,7 @@ class AdminCategoryController extends AbstractController
             $entityManager->remove($deleteCategory);
             $entityManager->flush();
             new Response('Categorie supprimé');
+            $this->addFlash('Bravo', 'Votre catégory a bien été supprimé');
             return $this->redirectToRoute('admin_categories');
         } else {
             return new Response('Catégorie non trouvé ');
@@ -96,7 +99,7 @@ class AdminCategoryController extends AbstractController
         $entityManager->persist($category);
         $entityManager->flush();
 
-
+        return $this->redirectToRoute('admin_categories');
 
     }
 

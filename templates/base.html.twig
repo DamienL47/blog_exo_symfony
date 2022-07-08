@@ -22,6 +22,10 @@
         </nav>
     </header>
 
+    {% for message in app.flashes('Bravo') %}
+        <p> {{ message }}</p>
+    {% endfor %}
+
     <main>
         {%block main%}
         {% endblock %}

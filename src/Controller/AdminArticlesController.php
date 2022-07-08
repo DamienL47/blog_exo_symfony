@@ -163,6 +163,10 @@ class AdminArticlesController extends AbstractController
         // pour envoyer vers la base de données.
         $entityManager->flush();
 
+        $this->addFlash('Bravo', 'Votre article est bien créé');
+
+        return $this->redirectToRoute('admin-articles');
+
     }
 
     /**
@@ -176,6 +180,7 @@ class AdminArticlesController extends AbstractController
         if (!is_null($article)){
             $entityManager->remove($article);
             $entityManager->flush();
+            $this->addFlash('Bravo', 'Votre article a bien été supprimé');
             return $this->redirectToRoute('home');
         } else {
             return new Response('Article non trouvé ');
@@ -185,15 +190,13 @@ class AdminArticlesController extends AbstractController
     /**
      * @Route("/admin/update/article/{id}", name="admin-update-article")
      */
-    public function updateArticle($id, EntityManagerInterface $entityManager, PostRepository $updateRepository)
+    public function updateArticle($id, EntityManagerInterface $entityManager, PostRepository $updateRepository, Request $request)
     {   //je récupère l'id de l'article à modifier en cliquant sur le lien modifier
         $article = $updateRepository->find($id);
 
-        //je redirige vers le formulaire de modification
 
-
-        //Je récupère la méthod post renseigné dans mon formulaire par l'admin
-
+        //Je récupère la méthod get renseigné dans mon formulaire par l'admin
+//        $request->query->get();
         //je passe une condition pour savoir ce qui à été modifié
 
 
@@ -201,5 +204,6 @@ class AdminArticlesController extends AbstractController
 
         $entityManager->persist($article);
         $entityManager->flush();
+        return $this->render('admin/updateArticle.html.twig');
     }
 }
