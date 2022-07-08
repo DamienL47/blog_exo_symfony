@@ -10,11 +10,11 @@ use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class CategoryController extends AbstractController
+class AdminCategoryController extends AbstractController
 {
 
     /**
-     * @Route("insert-category", name="insert_category")
+     * @Route("admin/insert-category", name="admin_insert_category")
      */
     public function insertCategory(EntityManagerInterface $entityManager)
     {
@@ -32,7 +32,7 @@ class CategoryController extends AbstractController
         dd($category);
     }
     /**
-     * @Route("categories/{id}", name="category")
+     * @Route("/admin/categories/{id}", name="admin_category")
      */
     public function showCategory($id, CategoryRepository $categoryRepository)
     {
@@ -45,19 +45,19 @@ class CategoryController extends AbstractController
 
         $category = $categoryRepository->find($id);
 
-        return $this->render('category.html.twig', [
+        return $this->render('admin/category.html.twig', [
             'category' => $category
         ]);
     }
 
     /**
-     * @Route("categories", name="categories")
+     * @Route("/admin/categories", name="admin_categories")
      */
     public function listCategory(CategoryRepository $listCategory)
     {
         $listCategory = $listCategory->findAll();
 
-        return $this->render('categories.html.twig', [
+        return $this->render('admin/categories.html.twig', [
             'categories' => $listCategory
         ]);
     }
