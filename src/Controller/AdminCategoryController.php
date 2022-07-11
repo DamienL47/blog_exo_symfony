@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
+use Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,22 +16,33 @@ class AdminCategoryController extends AbstractController
     /**
      * @Route("admin/insert-category", name="admin_insert_category")
      */
-    public function insertCategory(EntityManagerInterface $entityManager)
+    public function insertCategory(EntityManagerInterface $entityManager, Request $request)
     {
-        //Je recommence la même chose pour category ...
-        $category = new Category();
 
-        $category->setTitle('Legumes');
-        $category->setColor('violet');
-        $category->setDescription("l'aubergine est un très gros légume violet ");
-        $category->setIsPublished('true');
+        $title = $request->query->get('title');
+        $color = $request->query->get('color');
+        $description = $request->query->get('description');
 
-        $entityManager->persist($category);
-        $entityManager->flush();
+        if(!empty($title) && !empty($color) && !empty($description)){
 
-        $this->addFlash('Bravo', 'Votre catégory a bien été créé');
+            $category = new Category();
 
-        return $this->redirectToRoute('admin_categories');
+            $category->setTitle($title);
+            $category->setColor($color);
+            $category->setDescription($description);
+            $category->setIsPublished('true');
+
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            $this->addFlash('Bravo', 'Votre catégory a bien été créé');
+
+//            return $this->redirectToRoute('admin_categories');
+        } else {
+            $this->addFlash('ERROR', 'Veuillez renseigner tous les champs !');
+        }
+
+        return $this->render('admin/insertCategory.html.twig');
     }
     /**
      * @Route("/admin/categories/{id}", name="admin_category")
