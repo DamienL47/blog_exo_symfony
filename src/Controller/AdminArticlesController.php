@@ -181,6 +181,18 @@ class AdminArticlesController extends AbstractController
         $article = new Post();
 
         $form = $this->createForm(ArticleType::class, $article);
+        // je donne à la variable form une instance de la classe d'entité request pour que le formulaire
+        // puisse récupérer toutes les données des inputs et faire les setter automatiquement
+
+
+        $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()){
+                $entityManager->persist($article);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Votre article à bien été posté ');
+                $this->redirectToRoute('admin-articles');
+            }
 
         return $this->render('admin/insertArticle.html.twig', [
             'form' => $form->createView()
@@ -211,14 +223,26 @@ class AdminArticlesController extends AbstractController
     public function updateArticle($id, EntityManagerInterface $entityManager, PostRepository $updateRepository, Request $request)
     {   //je récupère l'id de l'article à modifier en cliquant sur le lien modifier
         $article = $updateRepository->find($id);
-
+        $form = $this->createForm('ArticleType', $article);
 
         //Je récupère la méthod get renseigné dans mon formulaire par l'admin
 //        $request->query->get();
         //je passe une condition pour savoir ce qui à été modifié
 
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($article);
+            $entityManager->flush();
 
-        $article->setTitle('Nouveau titre');
+            $this->addFlash('success', 'Votre article à bien été posté ');
+            $this->redirectToRoute('admin-articles');
+        }
+
+        return $this->render('admin/insertArticle.html.twig', [
+            'form' => $form->createView()
+        ]);
+
+
 
         $entityManager->persist($article);
         $entityManager->flush();

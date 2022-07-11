@@ -4,6 +4,9 @@ namespace App\Form;
 
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,9 +16,10 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('color')
-            ->add('description')
+            ->add('color', ColorType::class)
+            ->add('description', TextareaType::class)
             ->add('isPublished')
+            ->add('submit', SubmitType::class)
         ;
     }
 

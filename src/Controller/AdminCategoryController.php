@@ -63,6 +63,19 @@ class AdminCategoryController extends AbstractController
         // j'appelle donc le fichier CategoryType créé par symfony pour mettre en forme le formulaire
         // grace à la fonction create form
         $form = $this->createForm(CategoryType::class, $category);
+
+        // je donne à la variable form une instance de la classe d'entité request pour que le formulaire
+        // puisse récupérer toutes les données des inputs et faire les setter automatiquement
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre category à bien été posté ');
+            $this->redirectToRoute('admin_categories');
+        }
         // je dirige ma route vers la page de mon formulaires
         return $this->render('admin/insertCategory.html.twig', [
             'form' => $form->createView()
