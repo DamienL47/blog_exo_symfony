@@ -1,8 +1,8 @@
 {% extends 'base.html.twig' %}
 
 {% block main %}
-    <div class="formulaire">
-        <form action="{{ path('admin_insert_category')}}" method="get">
+    <div class="categoryContainer">
+        <form class="bloc" action="{{ path('admin_insert_category')}}" method="get">
             <label for="title"><h1>Titre</h1></label>
             <input type="text" name="title" id="title">
 

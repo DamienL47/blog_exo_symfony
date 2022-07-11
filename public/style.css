@@ -31,7 +31,7 @@ nav {
     background-color: lightskyblue;
 }
 
-.articlesContainer {
+.articlesContainer, .categoryContainer {
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -46,7 +46,7 @@ nav {
     text-align: center;
     margin-top: 2%;
     padding: 5px 10px 5px 10px;
-    border-radius: 10px 0 0 0;
+    border-radius: 10px 0 10px 0;
     box-shadow: lightslategray 3px 3px 10px;
     background-color: #f1f2f3;
 }
@@ -67,10 +67,7 @@ img {
     background-color: lightcoral;
 }
 
-.formulaire {
-    text-align: center;
-    margin: auto;
-}
+
 
 @media screen and (max-width: 765px) {
     .bloc {

@@ -12,37 +12,52 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminCategoryController extends AbstractController
 {
-
+    // Je créé une route vers ma page d'insert category
     /**
      * @Route("admin/insert-category", name="admin_insert_category")
      */
+
+    // j'instancie ma classe grâce à la méthode insertCategory et Request pour pouvoir gérer ma base de donnée
+    // existante
     public function insertCategory(EntityManagerInterface $entityManager, Request $request)
     {
-
+        //Je défini une variable pour chaque élément de mon formulaire dont je récupère la valeur grâce
+        //à la classe request et aux fonctions query et get dont la clé me permet de cibler les colonnes de ma BDD.
         $title = $request->query->get('title');
         $color = $request->query->get('color');
         $description = $request->query->get('description');
 
+        // Je teste si la catégory existe
         if($request->query->has('title') && $request->query->has('color') && $request->query->has('description')){
 
+            // si elle existe je teste si tous les champs sont bien renseigné
             if(!empty($title) && !empty($color) && !empty($description)){
 
+                // j'instancie ma classe catégory
                 $category = new Category();
 
+                // j'affecte les valeurs du formulaire grâce aux setters dans ma classe
                 $category->setTitle($title);
                 $category->setColor($color);
                 $category->setDescription($description);
                 $category->setIsPublished('true');
 
+                // j'utilise la classe entity manager et la fonction persist pour enregistrer mes données avant de les transmettre
                 $entityManager->persist($category);
+                // j'utilise ensuite la fonction flush pour envoyer les données dans ma BDD
                 $entityManager->flush();
 
+
+                // je transmet un message flash pour confirmer
                 $this->addFlash('Bravo', 'Votre catégory a bien été créé');
+                // Je redirige vers la page des catégories
                 return $this->redirectToRoute('admin_categories');
             } else {
+                // si les champs sont vides j'affiche un message d'erreur
                 $this->addFlash('ERROR', 'Veuillez renseigner tous les champs !');
             }
-        } 
+        }
+        // je dirige ma route vers la page de mon formulaires 
         return $this->render('admin/insertCategory.html.twig');
     }
     /**
