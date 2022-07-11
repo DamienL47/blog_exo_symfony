@@ -184,6 +184,7 @@ class AdminArticlesController extends AbstractController
         // je donne à la variable form une instance de la classe d'entité request pour que le formulaire
         // puisse récupérer toutes les données des inputs et faire les setter automatiquement
 
+        $article->setIsPublished('true');
 
         $form->handleRequest($request);
             if($form->isSubmitted() && $form->isValid()){
@@ -223,20 +224,21 @@ class AdminArticlesController extends AbstractController
     public function updateArticle($id, EntityManagerInterface $entityManager, PostRepository $updateRepository, Request $request)
     {   //je récupère l'id de l'article à modifier en cliquant sur le lien modifier
         $article = $updateRepository->find($id);
-        $form = $this->createForm('ArticleType', $article);
+        $form = $this->createForm(ArticleType::class, $article);
 
         //Je récupère la méthod get renseigné dans mon formulaire par l'admin
 //        $request->query->get();
         //je passe une condition pour savoir ce qui à été modifié
 
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $entityManager->persist($article);
-            $entityManager->flush();
 
-            $this->addFlash('success', 'Votre article à bien été posté ');
-            $this->redirectToRoute('admin-articles');
-        }
+        $form->handleRequest($request);
+            if($form->isSubmitted() && $form->isValid()){
+                $entityManager->persist($article);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'Votre article à bien été posté ');
+                $this->redirectToRoute('admin-articles');
+            }
 
         return $this->render('admin/insertArticle.html.twig', [
             'form' => $form->createView()
@@ -244,8 +246,8 @@ class AdminArticlesController extends AbstractController
 
 
 
-        $entityManager->persist($article);
-        $entityManager->flush();
-        return $this->render('admin/updateArticle.html.twig');
+//        $entityManager->persist($article);
+//        $entityManager->flush();
+//        return $this->render('admin/updateArticle.html.twig');
     }
 }

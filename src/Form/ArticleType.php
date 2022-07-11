@@ -15,9 +15,8 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('isPublished')
             ->add('author')
-            ->add('content')
+            ->add('content', TextareaType::class)
             ->add('submit', SubmitType::class)
         ;
     }

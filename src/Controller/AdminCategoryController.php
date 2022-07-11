@@ -68,6 +68,7 @@ class AdminCategoryController extends AbstractController
         // puisse récupérer toutes les données des inputs et faire les setter automatiquement
         $form->handleRequest($request);
 
+        $category->setIsPublished('true');
 
         if($form->isSubmitted() && $form->isValid()){
             $entityManager->persist($category);
@@ -137,16 +138,33 @@ class AdminCategoryController extends AbstractController
     // J'instancie ma classe en lui passant les méthodes de classe en parametre
     // la methode repository me permet de cibler la table
     // entity manager me permettra d'effectuer la méthode sur le serveur
-    public function updateCategory($id, CategoryRepository $updateCatRepository, EntityManagerInterface $entityManager)
+    public function updateCategory($id, CategoryRepository $updateCatRepository, EntityManagerInterface $entityManager, Request $request)
     {
         //Je cible l'id grâce à la méthode find
         $category = $updateCatRepository->find($id);
         // je selectionne l'élément de la catégory à modifier grâce au setter
-        $category -> setTitle('nouveau titre');
+        $form = $this->createForm(CategoryType::class, $category);
+
+        // je donne à la variable form une instance de la classe d'entité request pour que le formulaire
+        // puisse récupérer toutes les données des inputs et faire les setter automatiquement
+        $form->handleRequest($request);
+
+
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($category);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre category à bien été posté ');
+            $this->redirectToRoute('admin_categories');
+        }
+        // je dirige ma route vers la page de mon formulaires
+        return $this->render('admin/insertCategory.html.twig', [
+            'form' => $form->createView()
+        ]);
         //j'appelle la méthode entity manager pour "persister" (enregistrer) les modifications de ma catégory
         //Puis je flush les changement pour qu'il soit envoyé dans la base de donnée.
-        $entityManager->persist($category);
-        $entityManager->flush();
+//        $entityManager->persist($category);
+//        $entityManager->flush();
 
         return $this->redirectToRoute('admin_categories');
 

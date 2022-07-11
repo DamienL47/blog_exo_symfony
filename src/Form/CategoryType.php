@@ -18,7 +18,6 @@ class CategoryType extends AbstractType
             ->add('title')
             ->add('color', ColorType::class)
             ->add('description', TextareaType::class)
-            ->add('isPublished')
             ->add('submit', SubmitType::class)
         ;
     }
