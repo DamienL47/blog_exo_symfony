@@ -2,20 +2,8 @@
 
 {% block main %}
     <div class="categoryContainer">
-        <form class="bloc" action="{{ path('admin_insert_category')}}" method="get">
-            <label for="title"><h1>Titre</h1></label>
-            <input type="text" name="title" id="title">
-
-            <label for="color"><h1>Couleur</h1></label>
-            <input type="color" name="color" id="color">
-            <br>
-            <br>
-            <label for="description"></label>
-            <textarea name="description" id="description">Description</textarea>
-
-            <button>Envoyer</button>
-
-        </form>
+        {{ form(form) }}
+        <button>Envoyer</button>
     </div>
 {% endblock %}
 

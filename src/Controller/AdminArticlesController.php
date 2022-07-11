@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 
+use App\Form\ArticleType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -147,37 +148,43 @@ class AdminArticlesController extends AbstractController
     public function insertArticle(EntityManagerInterface $entityManager, Request $request)
     {
 
-        $title = $request->query->get('title');
-        $content = $request->query->get('description');
-        $author = $request->query->get('author');
+//        $title = $request->query->get('title');
+//        $content = $request->query->get('description');
+//        $author = $request->query->get('author');
+//
+//        if(!empty($title) && !empty($content) && !empty($author)){
+//            //je créé une instance de la classe d'entité post
+//            //pour créer un nouvel article dans ma base de données
+//            $post = new Post();
+//
+//            //Je renseigne mes données en utilisant les setteurs de mes colonnes
+//            $post->setTitle($title);
+//            $post->setContent($content);
+//            $post->setAuthor($author);
+//            $post->setIsPublished('true');
+//
+//            //Avec la classe Entity Manager Interface du framework doctrine
+//            // pour enregistrer dans ma base de données mon entité dans la table post
+//            $entityManager->persist($post);
+//            // avec la même classe entity manager interface j'utilise la fonction flush
+//            // pour envoyer vers la base de données.
+//            $entityManager->flush();
+//
+//            $this->addFlash('Bravo', 'Votre article est bien créé');
+//            return $this->redirectToRoute('admin-articles');
+//        } else {
+//            $this->addFlash('error', 'Veuillez renseigner tout les champs ');
+//        }
+//
+//        return $this->render('admin/insertArticle.html.twig');
+        // je créé l'instance de classe entité
+        $article = new Post();
 
-        if(!empty($title) && !empty($content) && !empty($author)){
-            //je créé une instance de la classe d'entité post
-            //pour créer un nouvel article dans ma base de données
-            $post = new Post();
+        $form = $this->createForm(ArticleType::class, $article);
 
-            //Je renseigne mes données en utilisant les setteurs de mes colonnes
-            $post->setTitle($title);
-            $post->setContent($content);
-            $post->setAuthor($author);
-            $post->setIsPublished('true');
-
-            //Avec la classe Entity Manager Interface du framework doctrine
-            // pour enregistrer dans ma base de données mon entité dans la table post
-            $entityManager->persist($post);
-            // avec la même classe entity manager interface j'utilise la fonction flush
-            // pour envoyer vers la base de données.
-            $entityManager->flush();
-
-            $this->addFlash('Bravo', 'Votre article est bien créé');
-            return $this->redirectToRoute('admin-articles');
-        } else {
-            $this->addFlash('error', 'Veuillez renseigner tout les champs ');
-        }
-
-        return $this->render('admin/insertArticle.html.twig');
-
-
+        return $this->render('admin/insertArticle.html.twig', [
+            'form' => $form->createView()
+            ]);
     }
 
     /**

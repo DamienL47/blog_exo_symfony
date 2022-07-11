@@ -3,15 +3,15 @@
 {% block main %}
     <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin_insert_category') }}> Ajouter une catégorie </a>
         {% for category in categories %}
+            <div class="bloc">
             {% if category %}
                 {% if category.isPublished %}
-                    <div class="bloc">
-                    <h1 style="color: {{category.color }}"> {{ category.title }}</h1>
-                    <p> {{ category.description}} </p>
-                        <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin_category', {'id': category.id }) }}> En savoir + </a>
-                        <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin_delete_category', {'id': category.id }) }}> Supprimer </a>
-                        <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin_update_category', {'id': category.id }) }}> Modifier </a>
-                    </div>
+                        <h1 style="color: {{category.color }}"> {{ category.title }}</h1>
+                        <p> {{ category.description}} </p>
+                            <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin_category', {'id': category.id }) }}> En savoir + </a>
+                            <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin_delete_category', {'id': category.id }) }}> Supprimer </a>
+                            <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin_update_category', {'id': category.id }) }}> Modifier </a>
+            </div>
                 {% else %}
                     <p> Cette catégorie n'est pas publié </p>
                 {% endif %}

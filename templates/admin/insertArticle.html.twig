@@ -2,19 +2,8 @@
 
 {% block main %}
     <div class="bloc">
-        <form action="{{ path('admin-insert_article')}}" method="get">
-            <label for="title"><h1>Titre</h1></label>
-            <input type="text" name="title" id="title">
-
-            <label for="description"></label>
-            <textarea name="description" id="description">Description</textarea>
-
-            <label for="author"><h1>Auteur</h1></label>
-            <input type="text" name="author" id="author">
-
-            <button>Envoyer</button>
-
-        </form>
+        {{ form(form) }}
+        <button>Envoyer</button>
     </div>
 {% endblock %}
 

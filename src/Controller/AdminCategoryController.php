@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use \Symfony\Component\HttpFoundation\Response;
@@ -23,42 +24,49 @@ class AdminCategoryController extends AbstractController
     {
         //Je défini une variable pour chaque élément de mon formulaire dont je récupère la valeur grâce
         //à la classe request et aux fonctions query et get dont la clé me permet de cibler les colonnes de ma BDD.
-        $title = $request->query->get('title');
-        $color = $request->query->get('color');
-        $description = $request->query->get('description');
+//        $title = $request->query->get('title');
+//        $color = $request->query->get('color');
+//        $description = $request->query->get('description');
 
         // Je teste si la catégory existe
-        if($request->query->has('title') && $request->query->has('color') && $request->query->has('description')){
+//        if($request->query->has('title') && $request->query->has('color') && $request->query->has('description')){
+//
+//            // si elle existe je teste si tous les champs sont bien renseigné
+//            if(!empty($title) && !empty($color) && !empty($description)){
+//
+//                // j'instancie ma classe catégory
+//
+//                // j'affecte les valeurs du formulaire grâce aux setters dans ma classe
+//                $category->setTitle($title);
+//                $category->setColor($color);
+//                $category->setDescription($description);
+//                $category->setIsPublished('true');
+//
+//                // j'utilise la classe entity manager et la fonction persist pour enregistrer mes données avant de les transmettre
+//                $entityManager->persist($category);
+//                // j'utilise ensuite la fonction flush pour envoyer les données dans ma BDD
+//                $entityManager->flush();
+//
+//                // je transmet un message flash pour confirmer
+//                $this->addFlash('Bravo', 'Votre catégory a bien été créé');
+//                // Je redirige vers la page des catégories
+//                return $this->render('admin/categories.html.twig');
+//            } else {
+//                // si les champs sont vides j'affiche un message d'erreur
+//                $this->addFlash('ERROR', 'Veuillez renseigner tous les champs !');
+//            }
+//        }
+        //Je créé mon instance de classe pour l'entité category
+        $category = new Category();
 
-            // si elle existe je teste si tous les champs sont bien renseigné
-            if(!empty($title) && !empty($color) && !empty($description)){
-
-                // j'instancie ma classe catégory
-                $category = new Category();
-
-                // j'affecte les valeurs du formulaire grâce aux setters dans ma classe
-                $category->setTitle($title);
-                $category->setColor($color);
-                $category->setDescription($description);
-                $category->setIsPublished('true');
-
-                // j'utilise la classe entity manager et la fonction persist pour enregistrer mes données avant de les transmettre
-                $entityManager->persist($category);
-                // j'utilise ensuite la fonction flush pour envoyer les données dans ma BDD
-                $entityManager->flush();
-
-
-                // je transmet un message flash pour confirmer
-                $this->addFlash('Bravo', 'Votre catégory a bien été créé');
-                // Je redirige vers la page des catégories
-                return $this->redirectToRoute('admin_categories');
-            } else {
-                // si les champs sont vides j'affiche un message d'erreur
-                $this->addFlash('ERROR', 'Veuillez renseigner tous les champs !');
-            }
-        }
-        // je dirige ma route vers la page de mon formulaires 
-        return $this->render('admin/insertCategory.html.twig');
+        //j'ai demandé à symfony de créer un formulaire avec la ligne de commande bin/console make:form
+        // j'appelle donc le fichier CategoryType créé par symfony pour mettre en forme le formulaire
+        // grace à la fonction create form
+        $form = $this->createForm(CategoryType::class, $category);
+        // je dirige ma route vers la page de mon formulaires
+        return $this->render('admin/insertCategory.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
     /**
      * @Route("/admin/categories/{id}", name="admin_category")
