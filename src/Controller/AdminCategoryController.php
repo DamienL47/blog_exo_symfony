@@ -23,25 +23,26 @@ class AdminCategoryController extends AbstractController
         $color = $request->query->get('color');
         $description = $request->query->get('description');
 
-        if(!empty($title) && !empty($color) && !empty($description)){
+        if($request->query->has('title') && $request->query->has('color') && $request->query->has('description')){
 
-            $category = new Category();
+            if(!empty($title) && !empty($color) && !empty($description)){
 
-            $category->setTitle($title);
-            $category->setColor($color);
-            $category->setDescription($description);
-            $category->setIsPublished('true');
+                $category = new Category();
 
-            $entityManager->persist($category);
-            $entityManager->flush();
+                $category->setTitle($title);
+                $category->setColor($color);
+                $category->setDescription($description);
+                $category->setIsPublished('true');
 
-            $this->addFlash('Bravo', 'Votre catégory a bien été créé');
+                $entityManager->persist($category);
+                $entityManager->flush();
 
-//            return $this->redirectToRoute('admin_categories');
-        } else {
-            $this->addFlash('ERROR', 'Veuillez renseigner tous les champs !');
-        }
-
+                $this->addFlash('Bravo', 'Votre catégory a bien été créé');
+                return $this->redirectToRoute('admin_categories');
+            } else {
+                $this->addFlash('ERROR', 'Veuillez renseigner tous les champs !');
+            }
+        } 
         return $this->render('admin/insertCategory.html.twig');
     }
     /**

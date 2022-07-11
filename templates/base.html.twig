@@ -25,6 +25,10 @@
     {% for message in app.flashes('Bravo') %}
         <p> {{ message }}</p>
     {% endfor %}
+    {% for message in app.flashes('ERROR') %}
+        <p> {{ message }}</p>
+    {% endfor %}
+
 
     <main>
         {%block main%}
