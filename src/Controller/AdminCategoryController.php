@@ -135,6 +135,7 @@ class AdminCategoryController extends AbstractController
     /**
      * @Route("/admin/update/category/{id}", name="admin_update_category")
      */
+
     // J'instancie ma classe en lui passant les méthodes de classe en parametre
     // la methode repository me permet de cibler la table
     // entity manager me permettra d'effectuer la méthode sur le serveur
