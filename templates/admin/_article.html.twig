@@ -6,7 +6,12 @@
                         <p>{{ article.content }}</p>
                         {#        <img src="{{ article.image }}" alt=" Image des articles">#}
                         {#        <p>Publié le : {{ article.publishedAt | date("m/d/Y")}}</p>#}
-                        <p>Auteur : {{ article.author}}</p>
+                        <p>Auteur : {{ article.author }}</p>
+                        {% if article.category %}
+                            <p> Catégorie:  {{ article.category.title }}</p>
+                        {% else %}
+                            <p>Cet article n'a pas de catégorie</p>
+                        {% endif %}
                         <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin-article', {'id': article.id }) }}> En savoir + </a>
                         <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin-delete-article', {'id': article.id }) }}> Supprimer </a>
                         <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin-update-article', {'id': article.id }) }}> Modifier </a>

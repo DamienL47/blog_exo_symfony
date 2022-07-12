@@ -28,7 +28,7 @@ class Post
     private $isPublished;
 
     /**
-     * @ORM\ManyToOne(targetEntity="app\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
      */
     private $category;
 

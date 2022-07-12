@@ -134,7 +134,7 @@ class AdminArticlesController extends AbstractController
     /**
      * @Route("/admin/articles", name="admin-articles")
      */
-    public function listArticles(PostRepository $listArticles)
+    public function listArticles(PostRepository $listArticles) : Response
     {
         $articles = $listArticles->findAll();
 
