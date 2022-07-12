@@ -222,7 +222,7 @@ class AdminArticlesController extends AbstractController
     /**
      * @Route("/admin/update/article/{id}", name="admin-update-article")
      */
-    public function updateArticle($id, EntityManagerInterface $entityManager, PostRepository $updateRepository, Request $request)
+    public function updateArticle($id, EntityManagerInterface $entityManager, PostRepository $updateRepository, Request $request) : Response
     {   //je récupère l'id de l'article à modifier en cliquant sur le lien modifier
         $article = $updateRepository->find($id);
         $form = $this->createForm(ArticleType::class, $article);
