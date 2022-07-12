@@ -187,13 +187,14 @@ class AdminArticlesController extends AbstractController
         $article->setIsPublished('true');
 
         $form->handleRequest($request);
-            if($form->isSubmitted() && $form->isValid()){
-                $entityManager->persist($article);
-                $entityManager->flush();
 
-                $this->addFlash('success', 'Votre article à bien été posté ');
-                $this->redirectToRoute('admin-articles');
-            }
+        if($form->isSubmitted() && $form->isValid()){
+            $entityManager->persist($article);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Votre article à bien été posté ');
+            $this->render('home.html.twig');
+        }
 
         return $this->render('admin/insertArticle.html.twig', [
             'form' => $form->createView()
