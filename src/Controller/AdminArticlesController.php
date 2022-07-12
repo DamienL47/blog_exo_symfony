@@ -193,7 +193,7 @@ class AdminArticlesController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Votre article à bien été posté ');
-            $this->render('home.html.twig');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('admin/insertArticle.html.twig', [
