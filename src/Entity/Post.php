@@ -28,6 +28,11 @@ class Post
     private $isPublished;
 
     /**
+     * @ORM\ManyToOne(targetEntity="app\Entity\Category")
+     */
+    private $category;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $author;
@@ -89,4 +94,21 @@ class Post
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
+    }
+
 }
