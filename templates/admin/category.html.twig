@@ -6,6 +6,9 @@
             <div class="bloc">
                 <h1 style="color: {{ category.color }}"> {{ category.title }} </h1>
                 <p> {{ category.description }} </p>
+                {% for article in category.posts %}
+                    <p> {{ article.title }}</p>
+                {% endfor %}
             </div>
         {% else %}
             <p> Cette catégorie n'est pas publié </p>

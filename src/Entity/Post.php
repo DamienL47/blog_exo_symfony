@@ -27,8 +27,9 @@ class Post
      */
     private $isPublished;
 
+    //je rajoute la classe inversedBy pour lier la cardinalitée avec le mapping d'articles
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="posts")
      */
     private $category;
 

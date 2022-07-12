@@ -21,8 +21,9 @@
         <div>
         {{ form_widget(form.category) }}
         </div>
-        <div class="btn btn-primary mb-2"> Envoyer </div>
-    </div>
+        {{ form_widget(form.submit, {'attr': {'class':'btn btn-primary mb-2' }}) }}
+        </div>
+        {{ form_end(form)}}
 {% endblock %}
 
 {% block title %}

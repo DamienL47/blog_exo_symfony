@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 // création de l'entité en ligne de commande avec "php bin/console make:entity
 /**
@@ -26,6 +27,18 @@ class Category
      * @ORM\Column(type="string", length=255)
      */
     private $color;
+
+    //je créé un mapping d'entité pour lier la cardinalitée entre articles et category
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="category")
+     */
+    private $posts;
+    // je créé un constructeur pour définir mon entité articles comme
+    // étant un tableau pouvant contenir plusieurs article
+    public function __construct()
+    {
+       $this->posts = new ArrayCollection();
+    }
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -89,8 +102,27 @@ class Category
 
         return $this;
     }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * @param ArrayCollection $posts
+     */
+    public function setPosts($posts)
+    {
+        $this->posts = $posts;
+    }
+
+
     // une fois les propriété rentrée j'utilise la commande php bin/console make:migration
     //pour rassembler les éléments de ma base de donée avant de les migrer
     //Puis la commande php bin/console doctrine:migration:migrate pour faire migrer la base de donnée
     // vers le serveur
+
 }

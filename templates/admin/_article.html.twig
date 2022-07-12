@@ -12,9 +12,9 @@
                         {% else %}
                             <p>Cet article n'a pas de catégorie</p>
                         {% endif %}
-                        <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin-article', {'id': article.id }) }}> En savoir + </a>
-                        <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin-delete-article', {'id': article.id }) }}> Supprimer </a>
-                        <a class="btn" style="color: black; text-decoration: none;" href={{ path('admin-update-article', {'id': article.id }) }}> Modifier </a>
+                        <a class="btn" href={{ path('admin-article', {'id': article.id }) }}> En savoir + </a>
+                        <a class="btn" href={{ path('admin-delete-article', {'id': article.id }) }}> Supprimer </a>
+                        <a class="btn" href={{ path('admin-update-article', {'id': article.id }) }}> Modifier </a>
                 {% else %}
                         <p>Désolé cet article n'est pas publié</p>
                 {% endif %}

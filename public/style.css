@@ -27,7 +27,7 @@ nav {
 }
 
 
-#home:hover, #listArticles:hover, #listCategory:hover {
+.item-menu:hover {
     background-color: lightskyblue;
 }
 
@@ -36,6 +36,8 @@ nav {
     align-items: center;
     justify-content: space-around;
     flex-flow: row wrap;
+    margin-top: 20px;
+    position: relative;
 }
 
 
@@ -44,7 +46,7 @@ nav {
     height: 600px;
     border: 1px solid gray;
     text-align: center;
-    margin-top: 2%;
+    margin-top: 5%;
     padding: 5px 10px 5px 10px;
     border-radius: 10px 0 10px 0;
     box-shadow: lightslategray 3px 3px 10px;
@@ -56,14 +58,30 @@ img {
     object-fit: cover;
 }
 
-.btn {
+.ajout {
+    text-decoration: none;
+    color: black;
     border: 1px solid lightskyblue;
-    border-radius: 20px 0 20px 20px;
+    border-radius: 20px 0 20px 0;
+    padding: 10px;
+    background-color: lightskyblue;
+
+    position: absolute;
+    left: 50%;
+    top: 170px;
+    transform: translateX(-50%);
+}
+
+.btn {
+    text-decoration: none;
+    color: black;
+    border: 1px solid lightskyblue;
+    border-radius: 20px 0 20px 0;
     padding: 10px;
     background-color: lightskyblue;
 }
 
-.btn:hover {
+.ajout:hover, .btn:hover {
     background-color: lightcoral;
 }
 
