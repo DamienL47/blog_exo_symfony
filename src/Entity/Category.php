@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 // création de l'entité en ligne de commande avec "php bin/console make:entity
 /**
@@ -28,18 +29,6 @@ class Category
      */
     private $color;
 
-    //je créé un mapping d'entité pour lier la cardinalitée entre articles et category
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="category")
-     */
-    private $posts;
-    // je créé un constructeur pour définir mon entité articles comme
-    // étant un tableau pouvant contenir plusieurs article
-    public function __construct()
-    {
-       $this->posts = new ArrayCollection();
-    }
-
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -49,6 +38,17 @@ class Category
      * @ORM\Column(type="boolean")
      */
     private $isPublished;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="category")
+     */
+    private $posts;
+
+    public function __construct()
+    {
+        $this->posts = new ArrayCollection();
+    }
+
     //Les getteurs et setteurs sont généré automatiquement
     public function getId(): ?int
     {
@@ -103,26 +103,43 @@ class Category
         return $this;
     }
 
-    /**
-     * @return ArrayCollection
-     */
-    public function getPosts()
-    {
-        return $this->posts;
-    }
 
-    /**
-     * @param ArrayCollection $posts
-     */
-    public function setPosts($posts)
-    {
-        $this->posts = $posts;
-    }
 
 
     // une fois les propriété rentrée j'utilise la commande php bin/console make:migration
     //pour rassembler les éléments de ma base de donée avant de les migrer
     //Puis la commande php bin/console doctrine:migration:migrate pour faire migrer la base de donnée
     // vers le serveur
+
+    /**
+     * @return Collection<int, Post>
+     */
+    public function getPosts(): Collection
+    {
+        return $this->posts;
+    }
+
+    public function addPost(Post $post): self
+    {
+        if (!$this->posts->contains($post)) {
+            $this->posts[] = $post;
+            $post->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removePost(Post $post): self
+    {
+        if ($this->posts->removeElement($post)) {
+            // set the owning side to null (unless already changed)
+            if ($post->getCategory() === $this) {
+                $post->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 }

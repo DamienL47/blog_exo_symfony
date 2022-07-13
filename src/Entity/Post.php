@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -27,12 +29,6 @@ class Post
      */
     private $isPublished;
 
-    //je rajoute la classe inversedBy pour lier la cardinalitée avec le mapping d'articles
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="posts")
-     */
-    private $category;
-
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -42,6 +38,12 @@ class Post
      * @ORM\Column(type="string", length=255)
      */
     private $content;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="posts")
+     */
+    private $category;
+
 
     public function getId(): ?int
     {
@@ -96,20 +98,16 @@ class Post
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCategory()
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    /**
-     * @param mixed $category
-     */
-    public function setCategory($category): void
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
     }
 
 }

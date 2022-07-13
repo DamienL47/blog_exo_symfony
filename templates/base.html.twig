@@ -17,6 +17,11 @@
         <h1 class="titre">Blog exo Symfony</h1>
         <nav>
             <ul class="navbar">
+                <form action="{{ path('home') }}" method="get" class="formulaire">
+                    <label for="search" class="form-label"></label>
+                    <input class="form-control" type="text" name="search" id="search" placeholder="Chercher sur le site " >
+                    <a class="btn btn-light" href="{{ path('admin_articles_search') }}">Rechercher</a>
+                </form>
                 <li class="item-menu"><a style="color: black; text-decoration: none;" href={{ path('home') }}> Accueil </a></li>
                 <li class="item-menu"><a style="color: black; text-decoration: none;" href={{ path('admin-articles') }}> Nos Articles </a></li>
                 <li class="item-menu"><a style="color: black; text-decoration: none;" href={{ path('admin_categories') }}> Nos Catégories </a></li>

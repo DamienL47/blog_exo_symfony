@@ -245,10 +245,28 @@ class AdminArticlesController extends AbstractController
             'form' => $form->createView()
         ]);
 
-
-
 //        $entityManager->persist($article);
 //        $entityManager->flush();
 //        return $this->render('admin/updateArticle.html.twig');
     }
+
+    //Je créé une route pour ma barre de recherche d'articles
+    /**
+     * @Route("admin/articles_search", name="admin_articles_search")
+     */
+
+    //Je créé la méthode de PostRepository pour récupérer les articles dans ma base de données
+    public function searchArticles(Request $request, PostRepository $postSearch)
+    {
+        //je créé une variable qui va récupérer la requete get
+        $search = $request->query->get('search');
+        //je stocke cette recherche dans une nouvelle variable qui va la comparer
+        // avec les articles dans ma base de données
+        $article = $postSearch->searchByWord($search);
+
+        return $this->render('admin/articles_search.html.twig', [
+            'articles' => $article
+        ]);
+    }
+
 }
