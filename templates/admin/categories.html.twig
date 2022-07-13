@@ -2,7 +2,7 @@
 
 {% block main %}
 
-    <a class="ajout" href={{ path('admin_insert_category') }}> Ajouter une catégorie </a>
+    <a class="ajout" href="{{ path('admin_insert_category') }}"> Ajouter une catégorie </a>
     <section class="categoryContainer">
         {% for category in categories %}
             <div class="bloc">
