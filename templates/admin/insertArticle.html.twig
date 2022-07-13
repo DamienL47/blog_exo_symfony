@@ -8,14 +8,17 @@
         <div class="form-group mx-sm-3 mb-2">
         {{ form_label(form.title) }}
         {{ form_widget(form.title) }}
+        {{ form_error(form.title) }}
         </div>
         <div class="form-group mx-sm-3 mb-2">
         {{ form_label(form.content) }}
         {{ form_widget(form.content) }}
+        {{ form_error(form.content) }}
         </div>
         <div class="form-group mx-sm-3 mb-2">
         {{ form_label(form.author) }}
         {{ form_widget(form.author) }}
+        {{ form_error(form.author) }}
         </div>
         <div class="form-group mx-sm-3 mb-2"> {{ form_label(form.category) }} </div>
         <div>

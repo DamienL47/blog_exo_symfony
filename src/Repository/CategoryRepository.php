@@ -38,6 +38,27 @@ class CategoryRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    //je créé une instance de classe pour récupérer les parametre de ma recherche
+    public function searchByWord($search)
+    {
+        //Je créé un constructeur (queryBuilder) et lui défini un alias
+        $queryBuilder = $this->createQueryBuilder('c');
+
+        // j'utilise ensuite cet alias pour selectionner via mon constructeur
+        // une requete sql en php dans ma table défini par mon alias
+        $query = $queryBuilder->select('c')
+            //je défini ma recherche (ici title) qui correspond
+            // à :search
+            ->where('c.title LIKE :search')
+            //je défini les parametre de :search en passant search en key et lui
+            // donne une value contenant des caractère avant et après pour sécuriser la variable
+            // et permet de rechercher les articles contenant le mots passé en key
+            ->setParameter('search', '%'.$search.'%')
+            //je récupère grace au guetter la requete correspondante
+            ->getQuery();
+        //puis je retourne ses valeurs depuis la base de données
+        return $query->getResult();
+    }
 
 //    /**
 //     * @return Category[] Returns an array of Category objects
